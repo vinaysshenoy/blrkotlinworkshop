@@ -1,0 +1,89 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: "de.mannodermaus.android-junit5"
+
+androidExtensions {
+    experimental = true
+}
+
+android {
+
+    compileSdkVersion 28
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+
+    defaultConfig {
+        applicationId "com.vinaysshenoy.blrkotlinworkshop"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    // Always show the result of every unit test, even if it passes.
+    testOptions.unitTests.all {
+        testLogging {
+            showStandardStreams true
+            events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+        }
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+        junitPlatform {
+            filters {
+                includeEngines "spek", "junit-vintage"
+            }
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/LICENSE.md'
+        exclude 'META-INF/LICENSE-notice.md'
+    }
+
+}
+
+// For Kotlin
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).matching { "$it".contains("UnitTest") }.all {
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
+    implementation "androidx.appcompat:appcompat:$versions.appcompat"
+    implementation "com.google.android.material:material:$versions.material"
+    implementation "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
+    implementation "com.jakewharton.timber:timber:$versions.timber"
+
+    kapt "androidx.lifecycle:lifecycle-compiler:$versions.lifecycle"
+
+    testImplementation "junit:junit:$versions.junit4"
+    testImplementation "org.amshove.kluent:kluent-android:$versions.kluent"
+    testImplementation "org.jetbrains.spek:spek-api:$versions.spek"
+    testImplementation "org.jetbrains.kotlin:kotlin-reflect:$versions.kotlin"
+    // The docs say testRuntime, but testImplementation is necessary for the Spek plugin
+    testImplementation "org.jetbrains.spek:spek-junit-platform-engine:$versions.spek"
+    testImplementation "androidx.arch.core:core-testing:$versions.lifecycle"
+
+    // Needed for running on the command like
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher:$versions.junitPlatform"
+    testRuntimeOnly "org.junit.vintage:junit-vintage-engine:$versions.junit5"
+
+    androidTestImplementation "org.amshove.kluent:kluent-android:$versions.kluent"
+}

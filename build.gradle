@@ -1,0 +1,45 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+
+    ext.versions = [
+        kotlin           : '1.2.61',
+        appcompat        : '1.0.0-rc02',
+        lifecycle        : '2.0.0-rc01',
+        material         : '1.0.0-rc02',
+        junit4           : '4.12',
+        junit5           : '5.2.0',
+        junitPlatform    : '1.2.0',
+        spek             : '1.1.5',
+        kluent           : '1.40',
+        timber           : '4.7.1',
+        coroutines       : '0.25.0'
+    ]
+
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.1.4'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+        classpath "de.mannodermaus.gradle.plugins:android-junit5:1.2.0.0"
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
