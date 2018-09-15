@@ -18,7 +18,7 @@ class GameOfLifeScreen : Fragment(),
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    // TODO: Create controller
+    // TODO
   }
 
   override fun onCreateView(
