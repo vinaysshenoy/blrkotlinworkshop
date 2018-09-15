@@ -1,12 +1,18 @@
 package com.vinaysshenoy.blrkotlinworkshop
 
-import androidx.lifecycle.LiveData
+import com.vinaysshenoy.blrkotlinworkshop.Receiver
 
 interface Controller<T : Any, U : Any, V : Any> {
 
   fun push(userEvent: T)
 
-  fun pull(): LiveData<U>
+  fun registerStateReceiver(receiver: Receiver<U>, initial: Boolean)
 
-  fun navigation(): LiveData<V>
+  fun unregisterStateReceiver()
+
+  fun registerSideEffectReceiver(receiver: Receiver<V>)
+
+  fun unregisterSideEffectReceiver()
+
+  fun destroy()
 }
