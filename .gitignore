@@ -129,7 +129,7 @@ captures/
 .idea/dictionaries
 .idea/libraries
 .idea/caches
-.idea/markdown-navigator*
+.idea/markdown*
 .idea/vcs.xml
 
 # Keystore files
